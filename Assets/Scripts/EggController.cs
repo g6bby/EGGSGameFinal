@@ -11,13 +11,9 @@ public class EggController : MonoBehaviour
         Cursor.visible = false; 
         Cursor.lockState = CursorLockMode.Locked;
     }
-    
-    void Update()
-    {
-        HandleInput();
-    }
 
-    void HandleInput()
+
+    void FixedUpdate()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -35,4 +31,6 @@ public class EggController : MonoBehaviour
 
         GetComponent<Rigidbody>().AddForce(movement * rollSpeed);
     }
+
+
 }
