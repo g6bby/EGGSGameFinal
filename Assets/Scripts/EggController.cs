@@ -8,10 +8,15 @@ public class EggController : MonoBehaviour
 
     void Update()
     {
+        HandleInput();
+    }
+
+    void HandleInput()
+    {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(horizontalInput, 0, verticalInput);
+        Vector3 movement = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
         GetComponent<Rigidbody>().AddForce(movement * rollSpeed);
     }
