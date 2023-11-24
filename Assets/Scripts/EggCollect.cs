@@ -10,6 +10,8 @@ public class EggCollect : MonoBehaviour
 
     private bool playerCollided = false;
 
+    public string newTag = "EggCollected";
+
     void Start()
     {
         collectUI.SetActive(false);
@@ -30,13 +32,17 @@ public class EggCollect : MonoBehaviour
         {  
             collectUI.SetActive(false);
             triggerBox.SetActive(false);
+
+            GameObject.FindGameObjectWithTag("OtherEgg").tag = newTag;
+            Debug.Log("Tag changed to: " + newTag);
+
             EnableScript();
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("EggCollected"))
         {
             playerCollided = true;
             collectUI.SetActive(true);
@@ -45,7 +51,7 @@ public class EggCollect : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("EggCollected"))
         {
             playerCollided = false;
             collectUI.SetActive(false);
