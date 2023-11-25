@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EggController : MonoBehaviour
 {
-    public float rollSpeed = 5f;
+    [SerializeField]
+    private float rollSpeed = 8f;
 
     void Start()
     {
