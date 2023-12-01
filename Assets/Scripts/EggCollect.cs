@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class EggCollect : MonoBehaviour
 {
     public MonoBehaviour eggController;
     public GameObject collectUI;
     public GameObject triggerBox;
+
+    //public CinemachineFreeLook freelookCam;
+    //private float camFOV = 40f;
 
     private bool playerCollided = false;
 
@@ -30,10 +34,14 @@ public class EggCollect : MonoBehaviour
     {
         if (playerCollided && Input.GetKeyDown(KeyCode.E))
         {  
+            //camFOV += 8f;
+            //freelookCam.m_Lens.FieldOfView = camFOV;
+
             collectUI.SetActive(false);
             triggerBox.SetActive(false);
 
             GameObject.FindGameObjectWithTag("OtherEgg").tag = newTag;
+
             Debug.Log("Tag changed to: " + newTag);
 
             EnableScript();
@@ -57,4 +65,5 @@ public class EggCollect : MonoBehaviour
             collectUI.SetActive(false);
         }
     }
+
 }
