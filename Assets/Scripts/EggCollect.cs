@@ -9,6 +9,8 @@ public class EggCollect : MonoBehaviour
     public GameObject collectUI;
     public GameObject triggerBox;
 
+    public AudioSource audioSource;
+
     //public CinemachineFreeLook freelookCam;
     //private float camFOV = 40f;
 
@@ -19,6 +21,7 @@ public class EggCollect : MonoBehaviour
     void Start()
     {
         collectUI.SetActive(false);
+        audioSource.enabled = false;
     }
 
     void EnableScript()
@@ -37,10 +40,13 @@ public class EggCollect : MonoBehaviour
             //camFOV += 8f;
             //freelookCam.m_Lens.FieldOfView = camFOV;
 
+            audioSource.enabled = true;
+            audioSource.Play();
+
             collectUI.SetActive(false);
             triggerBox.SetActive(false);
 
-            GameObject.FindGameObjectWithTag("OtherEgg").tag = newTag;
+            //GameObject.FindGameObjectWithTag("OtherEgg").tag = newTag;
 
             Debug.Log("Tag changed to: " + newTag);
 
