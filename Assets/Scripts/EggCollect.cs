@@ -48,6 +48,7 @@ public class EggCollect : MonoBehaviour
             fadeToBlack.enabled = true;
             StartCoroutine("ToEndScene");
         }
+        
     }
 
     void EnableScript()
@@ -76,8 +77,8 @@ public class EggCollect : MonoBehaviour
         //Debug.Log("Before score increment: " + currentScore);
         if (currentScore < maxScore)
         {
-            currentScore = 35;
-            //currentScore++;
+            //CHEAT //currentScore = 35;
+            currentScore++;
             scoreText.text = $"{currentScore}/{maxScore}";
         }
         //Debug.Log("After score increment: " + currentScore);
@@ -93,7 +94,10 @@ public class EggCollect : MonoBehaviour
     IEnumerator ToEndScene()
     {
         yield return new WaitForSeconds(6f);
-
+        
+        currentScore = 0;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene("EndScene");
     }
 

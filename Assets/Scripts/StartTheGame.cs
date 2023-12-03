@@ -14,4 +14,9 @@ public class StartTheGame : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("StartScreen");
+    }
 }
