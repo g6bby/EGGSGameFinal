@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using TMPro;
 
 public class EggCollect : MonoBehaviour
 {
@@ -11,8 +12,12 @@ public class EggCollect : MonoBehaviour
 
     public AudioSource audioSource;
 
-    //public CinemachineFreeLook freelookCam;
-    //private float camFOV = 40f;
+    public TextMeshProUGUI scoreText;
+    private int currentScore = 0;
+    private int maxScore = 35;
+
+    public CinemachineFreeLook freelookCam;
+    private float camFOV = 40f;
 
     private bool playerCollided = false;
 
@@ -24,6 +29,17 @@ public class EggCollect : MonoBehaviour
         audioSource.enabled = false;
     }
 
+    void Update()
+    {
+        if (playerCollided && Input.GetKeyDown(KeyCode.E))
+        {  
+            EnableScript();
+            HandleEggCollection();
+            UpdateScoreText();
+            ChangeFOVCam();
+        }
+    }
+
     void EnableScript()
     {
         if (eggController != null && !eggController.enabled)
@@ -33,25 +49,34 @@ public class EggCollect : MonoBehaviour
         }
     }
 
-    void Update()
+    void HandleEggCollection()
     {
-        if (playerCollided && Input.GetKeyDown(KeyCode.E))
-        {  
-            //camFOV += 8f;
-            //freelookCam.m_Lens.FieldOfView = camFOV;
+        audioSource.enabled = true;
+        audioSource.Play();
 
-            audioSource.enabled = true;
-            audioSource.Play();
+        collectUI.SetActive(false);
+        triggerBox.SetActive(false);
 
-            collectUI.SetActive(false);
-            triggerBox.SetActive(false);
+        //GameObject.FindGameObjectWithTag("OtherEgg").tag = newTag;
+        //Debug.Log("Tag changed to: " + newTag);
+    }
 
-            //GameObject.FindGameObjectWithTag("OtherEgg").tag = newTag;
-
-            Debug.Log("Tag changed to: " + newTag);
-
-            EnableScript();
+    void UpdateScoreText()
+    {
+        //Debug.Log("Before score increment: " + currentScore);
+        if (currentScore < maxScore)
+        {
+            currentScore++;
+            scoreText.text = $"{currentScore}/{maxScore}";
         }
+        //Debug.Log("After score increment: " + currentScore);
+
+    }
+
+    void ChangeFOVCam()
+    {
+        camFOV += 8f;
+        freelookCam.m_Lens.FieldOfView = camFOV;
     }
 
     void OnTriggerEnter(Collider other)
