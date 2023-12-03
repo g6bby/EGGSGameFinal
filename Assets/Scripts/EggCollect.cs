@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class EggCollect : MonoBehaviour
 {
@@ -23,10 +24,13 @@ public class EggCollect : MonoBehaviour
 
     public string newTag = "EggCollected";
 
+    public Animator fadeToBlack;
+
     void Start()
     {
         collectUI.SetActive(false);
         audioSource.enabled = false;
+        fadeToBlack.enabled = false;
     }
 
     void Update()
@@ -37,6 +41,12 @@ public class EggCollect : MonoBehaviour
             HandleEggCollection();
             UpdateScoreText();
             ChangeFOVCam();
+        }
+
+        if (currentScore == 35)
+        {
+            fadeToBlack.enabled = true;
+            StartCoroutine("ToEndScene");
         }
     }
 
@@ -66,7 +76,8 @@ public class EggCollect : MonoBehaviour
         //Debug.Log("Before score increment: " + currentScore);
         if (currentScore < maxScore)
         {
-            currentScore++;
+            currentScore = 35;
+            //currentScore++;
             scoreText.text = $"{currentScore}/{maxScore}";
         }
         //Debug.Log("After score increment: " + currentScore);
@@ -77,6 +88,13 @@ public class EggCollect : MonoBehaviour
     {
         camFOV += 8f;
         freelookCam.m_Lens.FieldOfView = camFOV;
+    }
+
+    IEnumerator ToEndScene()
+    {
+        yield return new WaitForSeconds(6f);
+
+        SceneManager.LoadScene("EndScene");
     }
 
     void OnTriggerEnter(Collider other)
