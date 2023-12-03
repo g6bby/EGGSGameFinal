@@ -13,8 +13,8 @@ public class EggCollect : MonoBehaviour
     public AudioSource audioSource;
 
     public TextMeshProUGUI scoreText;
-    private int currentScore = 0;
-    private int maxScore = 35;
+    private static int currentScore = 0;
+    private static int maxScore = 35;
 
     public CinemachineFreeLook freelookCam;
     private float camFOV = 40f;
