@@ -40,7 +40,7 @@ public class EggCollect : MonoBehaviour
             EnableScript();
             HandleEggCollection();
             UpdateScoreText();
-            ChangeFOVCam();
+            //ChangeFOVCam();
         }
 
         if (currentScore == 35)
@@ -95,10 +95,10 @@ public class EggCollect : MonoBehaviour
     {
         yield return new WaitForSeconds(6f);
         
-        currentScore = 0;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         SceneManager.LoadScene("EndScene");
+        currentScore = 0;
     }
 
     void OnTriggerEnter(Collider other)
