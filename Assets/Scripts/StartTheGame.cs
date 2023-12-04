@@ -8,6 +8,8 @@ public class StartTheGame : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("SampleScene");
+        //int previousScore = PlayerPrefs.GetInt("CurrentScore", 0);
+
     }
 
     public void QuitGame()

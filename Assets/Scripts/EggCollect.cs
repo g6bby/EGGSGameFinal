@@ -77,7 +77,7 @@ public class EggCollect : MonoBehaviour
         //Debug.Log("Before score increment: " + currentScore);
         if (currentScore < maxScore)
         {
-            //CHEAT //currentScore = 35;
+            //currentScore = 35;    //CHEAT
             currentScore++;
             scoreText.text = $"{currentScore}/{maxScore}";
         }
@@ -97,8 +97,12 @@ public class EggCollect : MonoBehaviour
         
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        SceneManager.LoadScene("EndScene");
+        
         currentScore = 0;
+        //PlayerPrefs.SetInt("CurrentScore", currentScore);
+        //PlayerPrefs.Save();
+
+        SceneManager.LoadScene("EndScene");
     }
 
     void OnTriggerEnter(Collider other)
