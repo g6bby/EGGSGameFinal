@@ -8,7 +8,6 @@ public class FOVChange : MonoBehaviour
     private float minFOV = 40f;
     private float maxFOV = 90f;
     private float currentFOV;
-    private float fovChangeSpeed = 2f;
     private float softcapValue = 35f;
     private int currentEggscore = 0;
 
@@ -41,22 +40,20 @@ public class FOVChange : MonoBehaviour
 
     IEnumerator IncreaseFOVOverTime()
     {
-        float elapsedTime = 0f;
+        float t = 0f;
+        float startFOV = freelookCam.m_Lens.FieldOfView;
+        float targetFOV = Mathf.Lerp(minFOV, maxFOV, Mathf.Min(currentEggscore / softcapValue, 1.0f));
 
-        while (elapsedTime < 1f)
+        while (t < 1f)
         {
-            float camerafov_interpolator = Mathf.Min(currentEggscore / softcapValue, 1.0f);
-            currentFOV = Mathf.Lerp(minFOV, maxFOV, camerafov_interpolator);
-            freelookCam.m_Lens.FieldOfView = currentFOV;
+            float lerpedFOV = Mathf.Lerp(startFOV, targetFOV, t);
+            freelookCam.m_Lens.FieldOfView = lerpedFOV;
 
-            elapsedTime += Time.deltaTime * fovChangeSpeed;
+            t += Time.deltaTime;
             keyPressed = false;
             yield return null;
         }
 
-        //currentFOV = maxFOV;
-        //freelookCam.m_Lens.FieldOfView = currentFOV;
-
-        // Reset the keyPressed variable
+        freelookCam.m_Lens.FieldOfView = targetFOV;
     }
 }
