@@ -22,6 +22,9 @@ public class EggCollect : MonoBehaviour
 
     private bool playerCollided = false;
 
+    private bool isFrozen = true;
+    public Rigidbody eggRigidbody;
+
     public string newTag = "EggCollected";
 
     public Animator fadeToBlack;
@@ -37,6 +40,7 @@ public class EggCollect : MonoBehaviour
     {
         if (playerCollided && Input.GetKeyDown(KeyCode.E))
         {  
+            ToggleFreeze();
             EnableScript();
             HandleEggCollection();
             UpdateScoreText();
@@ -49,6 +53,20 @@ public class EggCollect : MonoBehaviour
             StartCoroutine("ToEndScene");
         }
         
+    }
+
+    void ToggleFreeze()
+    {
+        isFrozen = false;
+
+        if (isFrozen == false)
+        {
+            eggRigidbody.constraints = RigidbodyConstraints.None;
+        }
+        else
+        {
+            eggRigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        }
     }
 
     void EnableScript()
